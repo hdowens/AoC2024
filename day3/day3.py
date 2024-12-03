@@ -83,5 +83,13 @@ def main() -> None:
     print(f"Part 2: {sum_matching_pairs(safe_vals)}")
 
 
+    """
+    This is to learn from others on their regex
+
+    Found this online from day3: 
+    pattern = re.compile(r'mul\(\d+,\d+\)|do\(\)|don\'t\(\)')
+
+    Use the `|` bars to represent OR statements in the REGEX. Goddamit.
+    """
 if __name__ == "__main__":
     main()
