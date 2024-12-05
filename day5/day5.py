@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def part1(rules, instructions) -> None:
+def part1(rules, instructions) -> int:
     total = 0
     for it in instructions:
         err_flag = True
@@ -16,7 +16,7 @@ def part1(rules, instructions) -> None:
     return total
 
 
-def part2(rules, instructions) -> None:
+def part2(rules, instructions) -> int:
     new_insrts = []
     for it in instructions:
         err_flag = True
