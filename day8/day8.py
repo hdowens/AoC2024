@@ -12,80 +12,58 @@ def find_attena(data: list, char: str) -> str:
 def bounds_check(x: int, y: int, data: list) -> bool:
     return x >= 0 and y >= 0 and x < len(data) and y < len(data[0]) 
 
-def part1(data, antennas):
-    pp_data = [list(line) for line in data]
+def part1(data, frequencies):
     antinodes_placed = set()
-    for antenna in antennas:
-        alst = find_attena(data, antenna)
+    for freq in frequencies:
+        alst = find_attena(data, freq)
         
-        for previous, current in list(combinations(alst, 2)):
-            dx, dy = current[0] - previous[0] , current[1] - previous[1]   
-
-            an_1 = (previous[0] + (-dx), previous[1] + (-dy))
+        for previous, current in combinations(alst, 2):
+            dx, dy = current[0] - previous[0], current[1] - previous[1]
+            an_1 = (previous[0] - dx, previous[1] - dy)
             an_2 = (current[0] + dx, current[1] + dy)
-            print(f"{previous} -> {an_1}\n{current} -> {an_2}\n\t dx: {dx} dy: {dy}")
-
-            if bounds_check(an_1[0], an_1[1], pp_data):
-                if pp_data[an_1[0]][an_1[1]] != antenna:    
-                    antinodes_placed.add(an_1)
-                    if pp_data[an_1[0]][an_1[1]] == '.':
-                        pp_data[an_1[0]][an_1[1]] = '#'
             
-            if bounds_check(an_2[0], an_2[1], pp_data):
-                if pp_data[an_2[0]][an_2[1]] != antenna :
-                    antinodes_placed.add(an_2)
-                    if pp_data[an_2[0]][an_2[1]] == '.':
-                        pp_data[an_2[0]][an_2[1]] = '#'
+            if bounds_check(an_1[0], an_1[1], data) and data[an_1[0]][an_1[1]] != freq:
+                antinodes_placed.add(an_1)
+                
+            if bounds_check(an_2[0], an_2[1], data) and data[an_2[0]][an_2[1]] != freq:
+                antinodes_placed.add(an_2)
             
-
-    print('\n'.join([''.join(line) for line in pp_data]))
     return len(antinodes_placed)
 
+def part2(data, frequencies):
+    antinodes_placed = set()
+    for freq in frequencies:
+        alst = find_attena(data, freq)
+        
+        for previous, current in combinations(alst, 2):
+            dx, dy = current[0] - previous[0], current[1] - previous[1]
+            an_1 = (previous[0] - dx, previous[1] - dy)
+            an_2 = (current[0] + dx, current[1] + dy)
+            
+            while bounds_check(an_1[0], an_1[1], data) or bounds_check(an_2[0], an_2[1], data):
+                if bounds_check(an_1[0], an_1[1], data) and data[an_1[0]][an_1[1]] != freq:
+                    antinodes_placed.add(an_1)
+                    
+                if bounds_check(an_2[0], an_2[1], data) and data[an_2[0]][an_2[1]] != freq:
+                    antinodes_placed.add(an_2)
+                    
+                an_1, an_2 = (an_1[0] - dx, an_1[1] - dy), (an_2[0] + dx, an_2[1] + dy)
+        
+        antinodes_placed.update(alst)
 
+    return len(antinodes_placed)
 
 def main() -> None:
     p = Path("puz_input.txt")
     with open(p.resolve(), "r") as input:
         data = input.read().splitlines()
 
-    antennas = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    #print(f"Part1: {part1(data, antennas)}")
-    pp_data = [list(line) for line in data]
-    antinode_count = 0
-    antinodes_placed = set()
-    for antenna in antennas:
-        alst = find_attena(data, antenna)
-        
-        for previous, current in list(combinations(alst, 2)):
-            dx, dy = current[0] - previous[0] , current[1] - previous[1]   
-            an_1 = (previous[0] + (-dx), previous[1] + (-dy))
-            an_2 = (current[0] + dx, current[1] + dy)
-            print(f"{previous} -> {an_1}\n{current} -> {an_2}\n\t dx: {dx} dy: {dy}")   
-            while bounds_check(an_1[0], an_1[1], pp_data) or bounds_check(an_2[0], an_2[1], pp_data):
-                
-                if bounds_check(an_1[0], an_1[1], pp_data):
-                    if pp_data[an_1[0]][an_1[1]] != antenna:    
-                        antinodes_placed.add(an_1)
-                        if pp_data[an_1[0]][an_1[1]] == '.':
-                            pp_data[an_1[0]][an_1[1]] = '#'
-                
-                if bounds_check(an_2[0], an_2[1], pp_data):
-                    if pp_data[an_2[0]][an_2[1]] != antenna :
-                        antinodes_placed.add(an_2)
-                        if pp_data[an_2[0]][an_2[1]] == '.':
-                            pp_data[an_2[0]][an_2[1]] = '#'
-
-                previous, current = an_1, an_2
-                an_1 = (previous[0] + (-dx), previous[1] + (-dy))
-                an_2 = (current[0] + dx, current[1] + dy)
+    frequencies = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    print(f"Part 1: {part1(data, frequencies)}")
+    print(f"Part 2: {part2(data, frequencies)}")
 
 
 
-        for pos in alst:
-            antinodes_placed.add(pos)
-
-
-    print(len(antinodes_placed))
 
 
 
