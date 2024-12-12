@@ -82,7 +82,6 @@ def main() -> None:
     safe_vals = [pairs[x] for x in values_in_safe_ranges(p_list, safe_ranges)]
     print(f"Part 2: {sum_matching_pairs(safe_vals)}")
 
-
     """
     This is to learn from others on their regex
 
@@ -91,5 +90,7 @@ def main() -> None:
 
     Use the `|` bars to represent OR statements in the REGEX. Goddamit.
     """
+
+
 if __name__ == "__main__":
     main()

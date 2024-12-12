@@ -1,7 +1,6 @@
 import re
 from enum import Enum
 from pathlib import Path
-from functools import reduce
 
 
 class Operator(Enum):
@@ -11,7 +10,7 @@ class Operator(Enum):
 
 
 def hit_target(candidates, target, current_result=0, index=0, operators=[]):
-    #check if we hit that target at the end
+    # check if we hit that target at the end
     if index == len(candidates):
         return current_result == target
 
@@ -64,7 +63,7 @@ def main() -> None:
     for line in data:
         target, candidates = line.split(":")
         candidates = list(map(int, re.findall(r"(\d+)", candidates)))
-        #print(f"Target: {target}, from: {candidates}")
+        # print(f"Target: {target}, from: {candidates}")
         if hit_target(candidates, int(target), candidates[0], 1, p1_ops):
             # print(f"\t[+]Target {target} can be hit.")
             total_hit += int(target)
