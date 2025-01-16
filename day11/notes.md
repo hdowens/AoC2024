@@ -17,15 +17,19 @@ from: https://stackoverflow.com/questions/19883015/python-collections-counter-vs
 
  -   Counter won't add new keys to the dict when you query for missing keys. So, if your queries include keys that may not be present in the dict then better use Counter.
 
-This supports what I've seen in previous days' solutions but not made a note of it even though I should have. I saw sometehing cool for the grid problems, parse the grid and store them in dict and then to stop worrying about bounds checks make a call to the Counter, which will return None if 
-they dont exist so it solves all those issues. I will do this for the next grid problem.
+This supports what I've seen in previous days' solutions but not made a note of it even though I should have. I saw sometehing cool for the grid problems, parse the grid and store them in dict/Counter and then to stop worrying about bounds checks make a call to the Counter, which will return None if they dont exist so it solves all those issues. I will do this for the next grid problem. (from the future, it happens tomorrow!)
 
 
-## Other people's approaches
-Memoisation is the theme of breaking the back of non-brute forceable AOC problems, so a lot of people focused on that. The focus there was to memoise the entire function and all itself recursively each time the list was update, kind of like the day previous. Interesting approach, one of which I would turn to last due to recursion introducing so many headaches for debugging.
+### Other people's approaches
+Memoisation is the theme of breaking the back of non-brute forceable AOC problems, so its no surprise a lot of people focused on that. The focus there was to memoise the entire function and all itself recursively each time the list was update, kind of like the day previous. Interesting approach, one of which I would turn to last due to recursion introducing so many headaches for debugging. I'm 99% sure that it then becomes a dynamic programming issue, like the coin problem in project euler.
 
 - - - 
 
+### Is there a number cycle?
+My thinking here is wondering what numbers will end up as
+
+
+- - -
 ### A bitta fun
 ```
 func:'count_stones' args:[(['1750884', '193', '866395', '7', '1158', '31', '35216', '0'], 25), {}] took: 0.0020 sec

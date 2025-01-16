@@ -1,0 +1,3 @@
+## Notes from today
+today has been a mission
+I have learnt a lot about ripple carry adders...

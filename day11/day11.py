@@ -29,19 +29,27 @@ def count_stones(stones: list[str], iterations: int) -> int:
     num_stones = 0
     for i in range(0, iterations):
         stone_counter = transmute_stones(stone_counter)
+
         num_stones = sum(val for val in stone_counter.values())
     return num_stones
 
 
 def main(file_path: Path) -> None:
-    with open(file_path.resolve(), "r") as input:
+    with open(file_path, "r") as input:
         data = input.readline()
 
-    stones = data.split(" ")
+    stone = data.split(" ")[0]
+    print(f"Stone starts at -> {stone}")
+    for i in range(0, 100):
+        stone = stone.split(" ")[0]
+        stone = stone_to_ret(stone)
+        print(f"-> {stone[0]}")
 
-    print(f"Part 1 with 25 iterations: {count_stones(stones, 25)}")
-    print(f"Part 2 with 75 iterations: {count_stones(stones, 75)}")
-    print(f"Part 3 with 5000 iterations (for science): {count_stones(stones, 5000)}")
+    # stones = data.split(" ")
+    # print(f"Part 1 with 25 iterations: {count_stones(stones, 25)}")
+
+    # print(f"Part 2 with 75 iterations: {count_stones(stones, 75)}")
+    # print(f"Part 3 with 5000 iterations (for science): {count_stones(stones, 5000)}")
 
 
 if __name__ == "__main__":
